@@ -34,11 +34,11 @@ console.log(name)  //first string
 ```
 #### 结论：
 ES5只有全局作用域和函数作用域，没有块级作用域,
-==let则实际上为JavaScript新增了块级作用域==，只在let命令所在的代码块内有效。
+`let则实际上为JavaScript新增了块级作用域`，只在let命令所在的代码块内有效。
 
 
 
-==var带来的不合理场景就是用来计数的循环变量泄露为全局变量==，看下面的例子：
+`var带来的不合理场景就是用来计数的循环变量泄露为全局变量`，看下面的例子：
 
 ```
 var a = [];
@@ -94,7 +94,7 @@ React Router从第1.0.3版开始也使用ES6语法了，比如这个例子：
 ```
 
 ### destructuring
-ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为==解构==（Destructuring）。
+ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为`解构`（Destructuring）。
 看下面的例子：
 
 ```
@@ -124,7 +124,7 @@ console.log(type, many)   //animal 2
 ### class, extends, super
 这三个特性涉及了ES5中最令人头疼的的几个部分：原型、构造函数，继承...你还在为它们复杂难懂的语法而烦恼吗？你还在为指针到底指向哪里而纠结万分吗？
 有了ES6我们不再烦恼！
-ES6提供了更接近传统语言的写法，引入==了Class（类==）这个概念。新的class写法让对象原型的写法更加清晰、更像面向对象编程的语法，也更加通俗易懂。
+ES6提供了更接近传统语言的写法，引入`了Class（类`）这个概念。新的class写法让对象原型的写法更加清晰、更像面向对象编程的语法，也更加通俗易懂。
 
 ```
 class Animal {
@@ -150,13 +150,13 @@ let cat = new Cat()
 cat.says('hello') //cat says hello
 ```
 
-上面代码首先用class定义了一个“类”，可以看到里面有一个==constructor方法，这就是构造方法，而this关键字则代表实例对象。简单地说，constructor内定义的方法和属性是实例对象自己的，而constructor外定义的方法和属性则是所有实例对象可以共享的==。
+上面代码首先用class定义了一个“类”，可以看到里面有一个`constructor方法，这就是构造方法，而this关键字则代表实例对象。简单地说，constructor内定义的方法和属性是实例对象自己的，而constructor外定义的方法和属性则是所有实例对象可以共享的`。
 
-==Class之间可以通过extends关键字实现继==承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。上面定义了一个Cat类，该类通过extends关键字，继承了Animal类的所有属性和方法。
+`Class之间可以通过extends关键字实现继`承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。上面定义了一个Cat类，该类通过extends关键字，继承了Animal类的所有属性和方法。
 
-==super关键字，它指代父类的实例（即父类的this对象==）。子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是==因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象==。
+`super关键字，它指代父类的实例（即父类的this对象`）。子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是`因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象`。
 
-==ES6的继承机制，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。==
+`ES6的继承机制，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。`
 
 P.S 如果你写react的话，就会发现以上三个东西在最新版React中出现得很多。创建的每个component都是一个继承React.Component的类。详见react文档
 ### arrow function
@@ -169,12 +169,12 @@ function(i){ return i + 1; } //ES5
 
 简直是简单的不像话对吧...
 如果方程比较复杂，则需要用{}把代码包起来：
-==function(x, y) { 
+`function(x, y) { 
     x++;
     y--;
     return x + y;
 }
-(x, y) => {x++; y--; return x+y}==
+(x, y) => {x++; y--; return x+y}`
 除了看上去更简洁以外，arrow function还有一项超级无敌的功能！
 长期以来，JavaScript语言的this对象一直是一个令人头痛的问题，在对象方法中使用this，必须非常小心。例如：
 
@@ -194,7 +194,7 @@ class Animal {
  animal.says('hi')  //undefined says hi
 ```
 
-运行上面的代码会报错，这是因为==setTimeout中的this指向的是全局对象==。所以为了让它能够正确的运行，传统的==解决方法有两种：==
+运行上面的代码会报错，这是因为`setTimeout中的this指向的是全局对象`。所以为了让它能够正确的运行，传统的`解决方法有两种：`
   1. 第一种是将this传给self,再用self来指代this
    
 ```
@@ -232,12 +232,12 @@ class Animal {
 ```
 
 
-当我们使用箭头函数时，==函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，它的this是继承外面的，因此内部的this就是外层代码块的this。==
+当我们使用箭头函数时，`函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，它的this是继承外面的，因此内部的this就是外层代码块的this。`
 
 
 
 ### default, rest
-default很简单，意思就是默认值。大家可以看下面的例子，调用animal()方法时忘了传参数，传统的做法就是加上这一句type = type || 'cat' 来==指定默认值==。
+default很简单，意思就是默认值。大家可以看下面的例子，调用animal()方法时忘了传参数，传统的做法就是加上这一句type = type || 'cat' 来`指定默认值`。
 
 ```
 function animal(type){
