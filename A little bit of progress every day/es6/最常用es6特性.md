@@ -1,39 +1,44 @@
 
-[其他资料参考](http://www.jianshu.com/p/ebfeb687eb70)
+[原文链接](http://www.jianshu.com/p/ebfeb687eb70)
 
-## let, const, class, extends, super, arrow functions, template string, destructuring, default, rest arguments
-这些是ES6最常用的几个语法，基本上学会它们，我们就可以走遍天下都不怕啦！我会用最通俗易懂的语言和例子来讲解它们，保证一看就懂，一学就会。
-### let, const
-这两个的用途与var类似，都是用来声明变量的，但在实际运用中他俩都有各自的特殊用途。
-首先来看下面这个例子：
+- 变量： let, const
+- 字符串：template string（字符串模板）
+- 数组or对象：destructuring （解构）
+- 函数：class（类）, extends（继承）, super, arrow functions（箭头函数）， default（默认值）, rest arguments（扩展运算符）
 
+### let, const （与var类似，都是用来声明变量的）
+
+###### var示例：
 ```
-var name = 'zach'
+var name = 'first string'
 
 while (true) {
-    var name = 'obama'
-    console.log(name)  //obama
+    var name = 'second string'
+    console.log(name)  //second string
     break
 }
 
-console.log(name)  //obama
+console.log(name)  //second string
 ```
-
-使用var 两次输出都是obama，这是因为ES5只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。第一种场景就是你现在看到的内层变量覆盖外层变量。而==let则实际上为JavaScript新增了块级作用域==。用它所声明的变量，只在let命令所在的代码块内有效。
-
+###### let示例：
 ```
-let name = 'zach'
+let name = 'first string'
 
 while (true) {
-    let name = 'obama'
-    console.log(name)  //obama
+    let name = 'second string'
+    console.log(name)  //second string
     break
 }
 
-console.log(name)  //zach
+console.log(name)  //first string
 ```
+#### 结论：
+ES5只有全局作用域和函数作用域，没有块级作用域,
+==let则实际上为JavaScript新增了块级作用域==，只在let命令所在的代码块内有效。
 
-另外一个==var带来的不合理场景就是用来计数的循环变量泄露为全局变量==，看下面的例子：
+
+
+==var带来的不合理场景就是用来计数的循环变量泄露为全局变量==，看下面的例子：
 
 ```
 var a = [];
@@ -57,48 +62,64 @@ for (let i = 0; i < 10; i++) {
 a[6](); // 6
 ```
 
-
-再来看一个更常见的例子，了解下如果不用ES6，而用==闭包如何解决这个问题==。
-
-```
-var clickBoxs = document.querySelectorAll('.clickBox')
-for (var i = 0; i < clickBoxs.length; i++){
-    clickBoxs[i].onclick = function(){
-        console.log(i)
-    }
-}
-```
-
-我们本来希望的是点击不同的clickBox，显示不同的i，但事实是无论我们点击哪个clickBox，输出的都是5。下面我们来看下，如何用闭包搞定它。
+### template string
+模板字符串非常有用，当我们要插入大段的html内容到文档中时，传统的写法非常麻烦，用一堆的'+'号来连接文本与变量如下：
 
 ```
-function iteratorFactory(i){
-    var onclick = function(e){
-        console.log(i)
-    }
-    return onclick;
-}
-var clickBoxs = document.querySelectorAll('.clickBox')
-for (var i = 0; i < clickBoxs.length; i++){
-    clickBoxs[i].onclick = iteratorFactory(i)
-}
+$("#result").append(
+  "There are <b>" + basket.count + "</b> " +
+  "items in your basket, " +
+  "<em>" + basket.onSale +
+  "</em> are on sale!"
+);
 ```
 
 
-==const也用来声明变量，但是声明的是常量。一旦声明，常量的值就不能改变==。
+而使用ES6的新特性模板字符串``后，我们可以直接这么来写：
 
 ```
-const PI = Math.PI
-
-PI = 23 //Module build failed: SyntaxError: /es6/app.js: "PI" is read-only
+$("#result").append(`
+  There are <b>${basket.count}</b> items
+   in your basket, <em>${basket.onSale}</em>
+  are on sale!
+`);
 ```
 
-当我们尝试去改变用const声明的常量时，浏览器就会报错。const有一个很好的应用场景，就是当我们引用第三方库的时声明的变量，==用const来声明可以避免未来不小心重命名而导致出现bug：==
+
+用反引号` 来标识起始，用${}来引用变量，而且所有的空格和缩进都会被保留在输出之中，是不是非常爽？！
+React Router从第1.0.3版开始也使用ES6语法了，比如这个例子：
 
 ```
-const monent = require('moment')
+<Link to={`/taco/${taco.name}`}>{taco.name}</Link>
 ```
 
+### destructuring
+ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为==解构==（Destructuring）。
+看下面的例子：
+
+```
+let cat = 'ken'
+let dog = 'lili'
+let zoo = {cat: cat, dog: dog}
+console.log(zoo)  //Object {cat: "ken", dog: "lili"}
+```
+
+用ES6完全可以像下面这么写：
+
+```
+let cat = 'ken'
+let dog = 'lili'
+let zoo = {cat, dog}
+console.log(zoo)  //Object {cat: "ken", dog: "lili"}
+```
+
+反过来可以这么写：
+
+```
+let dog = {type: 'animal', many: 2}
+let { type, many} = dog
+console.log(type, many)   //animal 2
+```
 
 ### class, extends, super
 这三个特性涉及了ES5中最令人头疼的的几个部分：原型、构造函数，继承...你还在为它们复杂难懂的语法而烦恼吗？你还在为指针到底指向哪里而纠结万分吗？
@@ -212,67 +233,7 @@ class Animal {
 
 
 当我们使用箭头函数时，==函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，它的this是继承外面的，因此内部的this就是外层代码块的this。==
-### template string
-这个东西也是非常有用，当我们要插入大段的html内容到文档中时，传统的写法非常麻烦，所以之前我们通常会引用一些模板工具库，比如mustache等等。
-大家可以先看下面一段代码：
 
-```
-$("#result").append(
-  "There are <b>" + basket.count + "</b> " +
-  "items in your basket, " +
-  "<em>" + basket.onSale +
-  "</em> are on sale!"
-);
-```
-
-
-我们要用一堆的'+'号来连接文本与变量，而使用ES6的新特性模板字符串``后，我们可以直接这么来写：
-
-```
-$("#result").append(`
-  There are <b>${basket.count}</b> items
-   in your basket, <em>${basket.onSale}</em>
-  are on sale!
-`);
-```
-
-
-用反引号（\）来标识起始，用${}`来引用变量，而且所有的空格和缩进都会被保留在输出之中，是不是非常爽？！
-React Router从第1.0.3版开始也使用ES6语法了，比如这个例子：
-
-```
-<Link to={`/taco/${taco.name}`}>{taco.name}</Link>
-```
-
-
-React Router
-### destructuring
-ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为==解构==（Destructuring）。
-看下面的例子：
-
-```
-let cat = 'ken'
-let dog = 'lili'
-let zoo = {cat: cat, dog: dog}
-console.log(zoo)  //Object {cat: "ken", dog: "lili"}
-```
-
-用ES6完全可以像下面这么写：
-
-```
-let cat = 'ken'
-let dog = 'lili'
-let zoo = {cat, dog}
-console.log(zoo)  //Object {cat: "ken", dog: "lili"}
-```
-
-反过来可以这么写：
-
-```
-let dog = {type: 'animal', many: 2}
-let { type, many} = dog
-console.log(type, many)   //animal 2
-```
 
 
 ### default, rest
