@@ -2,7 +2,7 @@
 
 一个html文档的正常文档流应该是所有块级元素从上往下依次排列，所有行内元素沿着行间排列。
 
-而bfc则是打破了这种排列，float和position就是bfc的两种用例，
+而bfc则是打破了这种排列，float(不为none)和position(不为默认的static或relative)就是bfc的两种用例，均会脱离文档流，float会挤占文档流的空间，position不会
 
 当float的属性值不为none的时候，就会触发bfc，它可以让块元素脱离文档流原本的排列顺序也沿着行间排列，这就是浮动。主要来解决图文混排中文字环绕问题。
 
