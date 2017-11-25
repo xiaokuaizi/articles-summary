@@ -4,7 +4,9 @@
 
 而bfc则是打破了这种排列，float和position就是bfc的两种用例，
 
-当float的属性值不为none的时候，就会触发bfc，它可以让块元素脱离文档流原本的排列顺序也沿着行间排列，这就是浮动。
+当float的属性值不为none的时候，就会触发bfc，它可以让块元素脱离文档流原本的排列顺序也沿着行间排列，这就是浮动。主要来解决图文混排中文字环绕问题。
 
-position的属性值不为默认的static的时候也会触发元素的bfc，使得元素脱离原文档流，拥有定位的功能。
+position的属性值不为默认的static或relative的时候也会触发元素的bfc，使得元素脱离原文档流，拥有定位的功能。
+
+[了解BFC点击此处](https://github.com/xiaokuaizi/articles-summary/blob/master/A%20little%20bit%20of%20progress%20every%20day/css/BFC.md)
 
