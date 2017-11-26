@@ -23,6 +23,7 @@
 7. 冒泡排序，快速排序等实现
 8. jquery 无new构造
 9. jQuery 的链式调用如何实现
+10. 用xhr对象实现Ajax请求
 
 ### HTTP
 1. post请求和get请求的区别，post请求为何更安全
